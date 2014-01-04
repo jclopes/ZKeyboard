@@ -19,19 +19,19 @@ Key64@ (http://www.key64.org)
 Firmware Features
 -----------------
 
-Key layout Layered system with 3 layers.
-Key debounce.
-6-key rollover (limited by the USB Human Interface Device protocol).
-Uses I2C communication with IO-Expander (mpc23018).
+ - Key layout Layered system with 3 layers.
+ - Key debounce.
+ - 6-key rollover (limited by the USB Human Interface Device protocol).
+ - Uses I2C communication with IO-Expander (mpc23018).
 
 
 Keyboard Features
 -----------------
 
-Split keyboard with free angle positioning.
-Three rows only to keep fingers from moving away from home row.
-Multiple keys assigned to the thumbs.
-Key positioning to match finger length and avoid extra hand movement.
-N-Key rollover compatible.
-Multi-layered key layout.
-Fully programable.
+ - Split keyboard with free angle positioning.
+ - Three rows only to keep fingers from moving away from home row.
+ - Multiple keys assigned to the thumbs.
+ - Key positioning to match finger length and avoid extra hand movement.
+ - N-Key rollover compatible.
+ - Multi-layered key layout.
+ - Fully programable.
