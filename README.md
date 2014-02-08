@@ -22,7 +22,7 @@ Firmware Features
  - Key layout Layered system with 3 layers.
  - Key debounce.
  - 6-key rollover (limited by the USB Human Interface Device protocol).
- - Uses I2C communication with IO-Expander (mpc23018).
+ - Uses I2C communication with IO-Expander (mcp23018).
 
 
 Keyboard Features
