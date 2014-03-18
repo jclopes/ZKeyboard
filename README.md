@@ -1,7 +1,7 @@
 ZKeyboard
 =========
 
-This repo contains the ZKeyboard firmware for the Arduino Micro.
+This repo will contains the ZKeyboard firmware for the Arduino Micro.
 
 ZKeyboard is a split keyboard inspired by the ErgoDox that it self was inspired by Key64@.
 The main changes from ErgoDox concept is to have less keys to keep the fingers from moving too far from the home row.
@@ -13,7 +13,7 @@ Acknowledgements
 ----------------
 
 All involved in building the ergodox and making everything accessible to everyone (http://ergodox.org).
-Key64@ (http://www.key64.org)
+Key64@ (http://www.key64.org).
 
 
 Firmware Features
@@ -29,9 +29,8 @@ Keyboard Features
 -----------------
 
  - Split keyboard with free angle positioning.
- - Three rows only to keep fingers from moving away from home row.
- - Multiple keys assigned to the thumbs.
- - Key positioning to match finger length and avoid extra hand movement.
+ - Only three rows of keys to keep the fingers always close to the home row.
+ - Seven keys assigned to each of the thumbs.
+ - Key positioning to match finger length and avoid extra hand movement and twisting.
  - N-Key rollover compatible.
- - Multi-layered key layout.
  - Fully programable.
