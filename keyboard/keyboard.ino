@@ -27,8 +27,8 @@
   the power from the row pin making it read LOW.
  */
 
-
-#define MAX_BOUNCE 5  // number of consecutive reads before we consider a key as changed state
+// Number of consecutive reads before we consider a key as changed state
+#define MAX_BOUNCE 3
 
 // The "Key" struct keeps the current status of a key.
 // TODO: eleminate id. it's redundant with the list index.
