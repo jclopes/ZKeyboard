@@ -120,7 +120,8 @@ byte mcp_read_col(byte column) {
 
   // Read one byte from the mcp with the state of the rows.
   Wire.requestFrom((int)mcp_address, 1);
-  row_state = Wire.read();
+  // Reverse the bites since the active rows are power drain (0)
+  row_state = ~Wire.read();
   return row_state;
 }
 
@@ -135,7 +136,7 @@ void read_left() {
   for (byte i = 0; i < NUM_LCOLS; i++) {
     active_rows = mcp_read_col(i);
     for (byte j = 0; j < NUM_LROWS; j++) {
-      bool is_pressed = (1 << j) & (byte)~active_rows;
+      bool is_pressed = (1 << j) & active_rows;
       update_state(lmap_pos2id[key_pos], is_pressed);
       key_pos++;
     }
