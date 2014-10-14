@@ -31,15 +31,14 @@
 #define MAX_BOUNCE 3
 
 // The "Key" struct keeps the current status of a key.
-// TODO: eleminate id. it's redundant with the list index.
-// TODO: add layer-key flag.
 typedef struct {
-  byte id;         // identifies the key
-  boolean changed; // did the key change state?
-  boolean pressed; // key state is pressed or not pressed
-  byte bounce;     // count how many times the key is bouncing
+  byte id;           // identifies the key
+  boolean changed;   // did the key change state?
+  boolean pressed;   // key state is pressed or not pressed
+  byte bounce;       // count how many times the key is bouncing
 } Key;
 
+// There are 50 keys on the keyboard.
 #define NUM_KEYS 50
 // keyboard is an array of keys
 Key keyboard[NUM_KEYS];
@@ -134,7 +133,6 @@ void reset_keyboard() {
   Key *k;
   for (byte i = 0; i < NUM_KEYS; ++i) {
     k = &keyboard[i];
-    k->id = i;
     k->changed = false;
     k->pressed = false;
     k->bounce = 0;
@@ -153,7 +151,7 @@ void update_state(byte key_id, boolean is_pressed) {
     Serial.print("Bouncing ");
     Serial.print(key->bounce);
     Serial.print(" key ");
-    Serial.println(key->id);
+    Serial.println(key_id);
   }
   else {
     key->bounce = 0;
@@ -161,7 +159,7 @@ void update_state(byte key_id, boolean is_pressed) {
 
   if (key->bounce > MAX_BOUNCE) {
     Serial.print("Changed ");
-    Serial.println(key->id);
+    Serial.println(key_id);
     key->changed = true;
     key->pressed = is_pressed;
   }
@@ -175,24 +173,21 @@ void loop() {
   read_right();
 
   // go through all keys and send the proper event
-  for (int i = 0; i < NUM_KEYS; i++) {
-    Key *k = &keyboard[i];
+  for (int k_id = 0; k_id < NUM_KEYS; k_id++) {
+    Key *k = &keyboard[k_id];
     if (k->changed) {
+      byte scancode = layers[activeLayer][k_id];
       if (k->pressed) {
         // TODO: Layer check
         // if (it's a layer key) update layers
         // else {
-        Keyboard.press_sc(layers[activeLayer][k->id]);
-        Serial.print("pressed -> ");
-        Serial.println(k->id);
+          Keyboard.press_sc(scancode);
       }
       else {
         // TODO: Layer check
         // if (it's a layer key) update layers
         // else {
-        Keyboard.release_sc(layers[activeLayer][k->id]);
-        Serial.print("relessed -> ");
-        Serial.println(k->id);
+          Keyboard.release_sc(scancode);
       }
       k->changed = false;
     }
