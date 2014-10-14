@@ -40,23 +40,27 @@ typedef struct {
 
 // There are 50 keys on the keyboard.
 #define NUM_KEYS 50
+// The keyboard layout consists of 3 layers.
+#define NUM_LAYERS 3
+
 // keyboard is an array of keys
 Key keyboard[NUM_KEYS];
 
-// A layer maps a Key->id to a scan code.
+// Which layer is currently in use.
 byte activeLayer = 0;
-// TODO: Add two more layers. For now there will be only one layer available.
-byte layers[1][NUM_KEYS];
-
+// Lock layout to the active layer
+bool lockLayer = false;
+// Layer mapping. A layer maps a Key->id to a scan code.
+byte layers[NUM_LAYERS][NUM_KEYS];
 
 // the setup routine
 void setup() {
 
-  Serial.begin(9600);
-  while (!Serial) {
-    delay(10); // wait for serial port to connect. Needed for Leonardo only
-  }
-  Serial.println("Testing Keyboard");
+  // Serial.begin(9600);
+  // while (!Serial) {
+  //   delay(10); // wait for serial port to connect. Needed for Leonardo only
+  // }
+  // Serial.println("Testing Keyboard");
 
   // Initialize the mcp23018. Start the wire system.
   mcp_setup();  // join the i2c bus
@@ -64,62 +68,11 @@ void setup() {
   // Initialize the arduino micro. Setup the pins.
   micro_setup();
 
+  // initialize the layers
+  layers_setup();
+
   // initialize the keyboard global
   reset_keyboard();
-
-  // initialize the layers
-  // TODO: Move all layer related code to a layers.ino file
-  layers[0][0] = 47;    // [
-  layers[0][1] = 20;    // Q
-  layers[0][2] = 26;    // W
-  layers[0][3] = 8;     // E
-  layers[0][4] = 21;    // R
-  layers[0][5] = 23;    // T
-  layers[0][6] = 225;   // LSHIFT
-  layers[0][7] = 4;     // A
-  layers[0][8] = 22;    // S
-  layers[0][9] = 7;     // D
-  layers[0][10] = 9;    // F
-  layers[0][11] = 10;   // G
-  layers[0][12] = 224;  // LCTRL
-  layers[0][13] = 29;   // Z
-  layers[0][14] = 27;   // X
-  layers[0][15] = 6;    // C
-  layers[0][16] = 25;   // V
-  layers[0][17] = 5;    // B
-  layers[0][18] = 0;    // LAYER 1 (doesn't send a scan code)
-  layers[0][19] = 41;   // ESC
-  layers[0][20] = 57;   // CAPSLOCK
-  layers[0][21] = 42;   // BSPACE
-  layers[0][22] = 76;   // DEL
-  layers[0][23] = 226;  // LALT
-  layers[0][24] = 227;  // LGUI
-
-  layers[0][25] = 28;   // Y
-  layers[0][26] = 24;   // U
-  layers[0][27] = 11;   // H
-  layers[0][28] = 13;   // J
-  layers[0][29] = 4;
-  layers[0][30] = 8;
-  layers[0][31] = 12;
-  layers[0][32] = 18;
-  layers[0][33] = 4;
-  layers[0][34] = 8;
-  layers[0][35] = 12;
-  layers[0][36] = 18;
-  layers[0][37] = 4;
-  layers[0][38] = 8;
-  layers[0][39] = 12;
-  layers[0][40] = 18;
-  layers[0][41] = 4;
-  layers[0][42] = 8;
-  layers[0][43] = 12;
-  layers[0][44] = 18;
-  layers[0][45] = 18;
-  layers[0][46] = 4;
-  layers[0][47] = 8;
-  layers[0][48] = 12;
-  layers[0][49] = 18;
 
   // initialize the keyboard lib.
   Keyboard.end();         // Disable keyboard emulation
@@ -178,16 +131,24 @@ void loop() {
     if (k->changed) {
       byte scancode = layers[activeLayer][k_id];
       if (k->pressed) {
-        // TODO: Layer check
-        // if (it's a layer key) update layers
-        // else {
+        if (is_layerkey(scancode)) {
+          layer_press(scancode);
+        }
+        else {
           Keyboard.press_sc(scancode);
+          Serial.print("pressed -> ");
+          Serial.println(k_id);
+        }
       }
       else {
-        // TODO: Layer check
-        // if (it's a layer key) update layers
-        // else {
+        if (is_layerkey(scancode)) {
+          layer_release(scancode);
+        }
+        else {
           Keyboard.release_sc(scancode);
+          Serial.print("relessed -> ");
+          Serial.println(k_id);
+        }
       }
       k->changed = false;
     }
