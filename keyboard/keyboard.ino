@@ -155,5 +155,5 @@ void loop() {
   }
   // TODO: find an adequate value for the delay
   // We want to read at least 20 key presses per second (20Hz)
-  delay(10);
+  delay(5);
 }
