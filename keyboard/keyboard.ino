@@ -56,12 +56,6 @@ byte layers[NUM_LAYERS][NUM_KEYS];
 // the setup routine
 void setup() {
 
-  // Serial.begin(9600);
-  // while (!Serial) {
-  //   delay(10); // wait for serial port to connect. Needed for Leonardo only
-  // }
-  // Serial.println("Testing Keyboard");
-
   // Initialize the mcp23018. Start the wire system.
   mcp_setup();  // join the i2c bus
 
@@ -101,18 +95,12 @@ void update_state(byte key_id, boolean is_pressed) {
   Key *key = &keyboard[key_id];
   if (key->pressed != is_pressed) {
     key->bounce += 1;
-    Serial.print("Bouncing ");
-    Serial.print(key->bounce);
-    Serial.print(" key ");
-    Serial.println(key_id);
   }
   else {
     key->bounce = 0;
   }
 
   if (key->bounce > MAX_BOUNCE) {
-    Serial.print("Changed ");
-    Serial.println(key_id);
     key->changed = true;
     key->pressed = is_pressed;
   }
@@ -136,8 +124,6 @@ void loop() {
         }
         else {
           Keyboard.press_sc(scancode);
-          Serial.print("pressed -> ");
-          Serial.println(k_id);
         }
       }
       else {
@@ -146,8 +132,6 @@ void loop() {
         }
         else {
           Keyboard.release_sc(scancode);
-          Serial.print("relessed -> ");
-          Serial.println(k_id);
         }
       }
       k->changed = false;
