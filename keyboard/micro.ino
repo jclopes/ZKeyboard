@@ -12,12 +12,12 @@
  */
 // TODO: fix the mapping according to the circuit schema.
 const byte rmap_pos2id[] = {
-   25,  31,  37, 255, 255,
-   26,  32,  38, 255, 255,
-   27,  33,  39,  48,  49,
-   28,  34,  40,  45,  47,
-   29,  35,  41,  44,  46,
-   30,  36,  42,  43, 255
+   25,  31,  37,  45, 255,
+   26,  32,  38,  44,  48,
+   27,  33,  39,  43,  47,
+   28,  34,  40,  46,  49,
+   29,  35,  41, 255, 255,
+   30,  36,  42, 255, 255
 };
 
 /* Which pins will be rows and which will be columns */
