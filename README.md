@@ -1,12 +1,14 @@
 ZKeyboard
 =========
 
-This repo will contains the ZKeyboard firmware for the Arduino Micro.
+This is the firmware for the ZKeyboard Arduino Micro.
+
+![alt ZKeyboard](https://github.com/jclopes/ZKeyboard/blob/master/img/ZKeyboard-TOP.jpg)
 
 ZKeyboard is a split keyboard inspired by the ErgoDox that it self was inspired by Key64@.
 The main changes from ErgoDox concept is to have less keys to keep the fingers from moving too far from the home row.
 
-The electronic components that are part of the ZKeyboard are the same as the ones in ergodox except for the main controller the Teensy USB Board that was replaced by a Arduino Micro.
+The electronic components that are part of the ZKeyboard are the same as the ones in ergodox except for the main controller where the Teensy USB Board was replaced by a Arduino Micro.
 
 
 Acknowledgements
